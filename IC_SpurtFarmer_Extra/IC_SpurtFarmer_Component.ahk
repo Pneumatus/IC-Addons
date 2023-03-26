@@ -72,7 +72,7 @@ class SpurtFarm {
         loop {
             num := ActiveEffectKeySharedFunctions.Spurt.WaspirationHandler.ReadSpurtWasps()
             GuiControl, ICScriptHub:, SpurtFarm_Wasps, % "Current Wasps: " . num
-            if (num >= 15) {
+            if (num >= 15 && g_SF.Memory.ReadTransitioning() == 0) {
                 input := toggle = 1 ? ( "{Left}", toggle := 0) : ( "{Right}", toggle := 1)
                 g_SF.DirectedInput(,,input)
             }

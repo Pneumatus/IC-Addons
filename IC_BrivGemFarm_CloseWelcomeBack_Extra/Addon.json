@@ -1,14 +1,14 @@
 {
-	"Name":"BrivGemFarm Close Welcome Back",
-	"Version": "v0.0.2",
-    "Includes" : "IC_BrivGemFarm_CloseWelcomeBack_Component.ahk",
-    "Author" : "Ismo",
-    "Url" : "",
-    "Info" : "Closes the Welcome Back screen",
-    "Dependencies" : [
+    "Name": "BrivGemFarm Close Welcome Back",
+    "Version": "v0.0.2",
+    "Includes": "IC_BrivGemFarm_CloseWelcomeBack_Component.ahk",
+    "Author": "Ismo/Pneumatus",
+    "Url": "https://github.com/Pneumatus/IC-Addons/tree/main/IC_BrivGemFarm_CloseWelcomeBack_Extra",
+    "Info": "Closes the Welcome Back screen",
+    "Dependencies": [
         {
-            "Name":"Briv Gem Farm",
-            "Version":"v1.3.0"
+            "Name": "Briv Gem Farm",
+            "Version": "v1.3.0"
         }
     ]
 }

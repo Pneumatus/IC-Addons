@@ -1,0 +1,9 @@
+{
+    "Name": "SpurtFarmer",
+    "Version": "v0.0.6",
+    "Includes": "IC_SpurtFarmer_Component.ahk",
+    "Author": "Ismo",
+    "Url": "",
+    "Info": "",
+    "Dependencies": {}
+}

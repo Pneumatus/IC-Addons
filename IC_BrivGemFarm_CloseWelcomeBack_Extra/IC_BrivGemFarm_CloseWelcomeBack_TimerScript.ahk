@@ -28,7 +28,9 @@ class IC_BrivGemFarm_CloseWelcomeBack_TimerScript
 
     CloseWelcomeBack() 
     {
-        if (g_SF.Memory.ReadWelcomeBackActive())
+        if (g_SF.Memory.ReadWelcomeBackActive()) {
+            g_SF.Hwnd := WinExist("ahk_exe " . g_UserSettings[ "ExeName" ])
             g_SF.DirectedInput(,,"{Esc}")
+        }
     }
 }

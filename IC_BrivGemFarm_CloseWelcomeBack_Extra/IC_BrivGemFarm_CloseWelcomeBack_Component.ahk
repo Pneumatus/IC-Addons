@@ -1,3 +1,5 @@
+#include %A_LineFile%\..\IC_BrivGemFarm_CloseWelcomeBack_TimerScript.ahk
+
 class IC_BrivGemFarm_CloseWelcomeBack_Component
 {
     InjectAddon()
@@ -10,3 +12,9 @@ class IC_BrivGemFarm_CloseWelcomeBack_Component
     }
 }
 IC_BrivGemFarm_CloseWelcomeBack_Component.InjectAddon()
+
+; timer script on start
+g_BrivFarmAddonStartFunctions.Push(ObjBindMethod(IC_BrivGemFarm_CloseWelcomeBack_TimerScript, "CreateTimedFunctions"))
+g_BrivFarmAddonStartFunctions.Push(ObjBindMethod(IC_BrivGemFarm_CloseWelcomeBack_TimerScript, "StartTimedFunctions"))
+; timer script on stop
+g_BrivFarmAddonStopFunctions.Push(ObjBindMethod(IC_BrivGemFarm_CloseWelcomeBack_TimerScript, "StopTimedFunctions"))

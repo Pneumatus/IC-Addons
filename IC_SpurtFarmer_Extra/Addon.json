@@ -1,6 +1,6 @@
 {
     "Name": "SpurtFarmer",
-    "Version": "v0.0.6",
+    "Version": "v0.0.7",
     "Includes": "IC_SpurtFarmer_Component.ahk",
     "Author": "Ismo/Pneumatus",
     "Url": "https://github.com/Pneumatus/IC-Addons/tree/main/IC_SpurtFarmer_Extra",

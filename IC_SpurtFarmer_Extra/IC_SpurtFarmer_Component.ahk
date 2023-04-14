@@ -52,7 +52,7 @@ class SpurtFarm {
 
     Run() {
         this.running := true
-        if (ActiveEffectKeySharedFunctions.Spurt.WaspirationHandler) {
+        if (ActiveEffectKeySharedFunctions.Spurt.SpurtWaspirationHandlerV2) {
             GuiControl, ICScriptHub:, SpurtFarm_Status, Running MemRead Spurt Farm
             this.doMemReadFarm()
         } else {
@@ -70,7 +70,7 @@ class SpurtFarm {
     doMemReadFarm() {
         toggle := 0
         loop {
-            num := ActiveEffectKeySharedFunctions.Spurt.WaspirationHandler.ReadSpurtWasps()
+            num := ActiveEffectKeySharedFunctions.Spurt.SpurtWaspirationHandlerV2.ReadSpurtWasps()
             GuiControl, ICScriptHub:, SpurtFarm_Wasps, % "Current Wasps: " . num
             if (num >= 15 && g_SF.Memory.ReadTransitioning() == 0) {
                 input := toggle = 1 ? ( "{Left}", toggle := 0) : ( "{Right}", toggle := 1)

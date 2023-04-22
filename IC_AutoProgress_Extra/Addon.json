@@ -1,0 +1,9 @@
+{
+    "Name": "AutoProgress",
+    "Version": "v0.0.1",
+    "Includes": "IC_AutoProgress_Component.ahk",
+    "Author": "Ismo/Pneumatus",
+    "Url": "https://github.com/Pneumatus/IC-Addons/tree/main/IC_AutoProgress_Extra",
+    "Info": "Keeps auto-progress enabled",
+    "Dependencies": {}
+}

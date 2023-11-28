@@ -4,7 +4,9 @@ Gui, ICScriptHub:Tab, NrakkUltMaster
 Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Text, x15 y80, NrakkUltMaster
 Gui, ICScriptHub:Font, w400
-Gui, ICScriptHub:Add, Text, x15 y+5, Master Nrakk's Ult
+Gui, ICScriptHub:Add, Text, x15 y+5 w450 wrap, This AddOn will use Nrakk's ultimate to generate Ki points. It will activate Nrakk's ultimate and attempt to hit all 10 reactivation triggers for a total of 30 Ki Points.
+Gui, ICScriptHub:Add, Text, x15 y+5 w450 wrap, If Dungeon Master is in the formation and has his ultimate off of cooldown, it will be used to reset Nrakks's ultimate timer and attempt to gain another 30 Ki Points.
+Gui, ICScriptHub:Add, Text, x15 y+5 w450 wrap, It is reccomended that auto-progress is disabled so that you don't accidentally transition mid-ultimate.
 
 Gui, ICScriptHub:Add, Button, x15 y+10 w160 gNrakkUltMaster_Run, Run
 Gui, ICScriptHub:Add, Button, x15 y+10 w160 gNrakkUltMaster_Stop, Stop

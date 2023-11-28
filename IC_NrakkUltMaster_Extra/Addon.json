@@ -1,6 +1,6 @@
 {
     "Name": "NrakkUltMaster",
-    "Version": "v0.0.1",
+    "Version": "v0.0.2",
     "Includes": "IC_NrakkUltMaster_Component.ahk",
     "Author": "Ismo/Pneumatus",
     "Url": "https://github.com/Pneumatus/IC-Addons/tree/main/IC_NrakkUltMaster_Extra",

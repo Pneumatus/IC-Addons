@@ -8,20 +8,13 @@ Gui, ICScriptHub:Tab, BetterAzaka
 Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Text, x15 y80, BetterAzaka
 Gui, ICScriptHub:Font, w400
-Gui, ICScriptHub:Add, Text, x15 y+5, This AddOn will use the configured ults at a set Omin number of contracts fulfilled.
-Gui, ICScriptHub:Add, Text, x15 y+5, Ults will only be triggered when all ultimates are off cooldown.
-Gui, ICScriptHub:Add, Text, x15 y+5, If configured, once all ults have been triggered the W formation will activated for
-Gui, ICScriptHub:Add, Text, x15 y+5, the configured amount of time before swapping back to Q.
-
-if ( g_BetterAzakaSettings.NumContracts == "" )
-    g_BetterAzakaSettings.NumContracts := 95
-Gui, ICScriptHub:Add, Text, x15 y+15, Ult. on this many Contracts Fulfilled:
-Gui, ICScriptHub:Add, Edit, vBetterAzaka_Contracts x+5 w50, % g_BetterAzakaSettings.NumContracts
-Gui, ICScriptHub:Add, Text, x+5 vBetterAzaka_Contracts_Saved w200, % "Saved value: " . g_BetterAzakaSettings.NumContracts
+Gui, ICScriptHub:Add, Text, x15 y+5, This AddOn will use the configured ultimates when all of them are off cooldown.
+Gui, ICScriptHub:Add, Text, x15 y+5, Optionally once ultimates have been triggered the W formation will be activated
+Gui, ICScriptHub:Add, Text, x15 y+5, for the configured amount of time before swapping back to Q.
 
 if ( g_BetterAzakaSettings.Loops == "" )
     g_BetterAzakaSettings.Loops := 5
-Gui, ICScriptHub:Add, Text, x15 y+15, Ult. this many times:
+Gui, ICScriptHub:Add, Text, x15 y+15, Repeat ultimates this many times:
 Gui, ICScriptHub:Add, Edit, vBetterAzaka_Loops x+5 w50, % g_BetterAzakaSettings.Loops
 Gui, ICScriptHub:Add, Text, x+5 vBetterAzaka_Loops_Saved w200, % "Saved value: " . g_BetterAzakaSettings.Loops
 
@@ -44,7 +37,7 @@ loop, 10
 
 if ( g_BetterAzakaSettings.SwapWDurationSecs == "" )
     g_BetterAzakaSettings.SwapWDurationSecs := 0
-Gui, ICScriptHub:Add, Text, x15 y+15, Swap to W for this many seconds after ults:
+Gui, ICScriptHub:Add, Text, x15 y+15, Swap to W for this many seconds after ultimates:
 Gui, ICScriptHub:Add, Edit, vBetterAzaka_SwapWDurationSecs x+5 w50, % g_BetterAzakaSettings.SwapWDurationSecs
 Gui, ICScriptHub:Add, Text, x+5 vBetterAzaka_SwapWDurationSecs_Saved w200, % "Saved value: " . g_BetterAzakaSettings.SwapWDurationSecs
 
@@ -52,16 +45,12 @@ Gui, ICScriptHub:Add, Button, x15 y+10 w160 gBetterAzaka_Save, Save Settings
 Gui, ICScriptHub:Add, Button, x15 y+10 w160 gBetterAzaka_Run, Run
 
 Gui, ICScriptHub:Add, Text, x15 y+10 vBetterAzaka_Running w300,
-Gui, ICScriptHub:Add, Text, x15 y+5 vBetterAzaka_CurrentContracts w300,
-Gui, ICScriptHub:Add, Text, x15 y+5 vBetterAzaka_CurrentUltStatus w300,
 Gui, ICScriptHub:Add, Text, x15 y+5 vBetterAzaka_UltsUsed w300,
 
 BetterAzaka_Save()
 {
     global
     Gui, ICScriptHub:Submit, NoHide
-    g_BetterAzakaSettings.NumContracts := BetterAzaka_Contracts
-    GuiControl, ICScriptHub:, BetterAzaka_Contracts_Saved, % "Saved value: " . g_BetterAzakaSettings.NumContracts
 
     g_BetterAzakaSettings.Loops := BetterAzaka_Loops
     GuiControl, ICScriptHub:, BetterAzaka_Loops_Saved, % "Saved value: " . g_BetterAzakaSettings.Loops
@@ -90,7 +79,6 @@ BetterAzaka_Run()
     ;create object for azaka class to update gui
     guiData := {}
     guiData.guiName := "ICScriptHub:"
-    guiData.guiControlIDcont := "BetterAzaka_CurrentContracts"
     guiData.guiControlIDultStatus := "BetterAzaka_CurrentUltStatus"
     guiData.guiControlIDults := "BetterAzaka_UltsUsed"
 
@@ -98,7 +86,6 @@ BetterAzaka_Run()
     azaka.Run()
 
     GuiControl, ICScriptHub:, BetterAzaka_Running, Azaka farm is complete.
-    GuiControl, ICScriptHub:, BetterAzaka_CurrentContracts,
     GuiControl, ICScriptHub:, BetterAzaka_CurrentUltStatus,
     GuiControl, ICScriptHub:, BetterAzaka_UltsUsed,
     msgbox, Azaka farm is complete.
@@ -124,13 +111,11 @@ class BetterAzakaFarm
                 this.ultIndexes.Push(A_Index - 1)
         }
         this.loops := settings.Loops
-        this.numContracts := settings.NumContracts
         this.swapWDurationSecs := g_BetterAzakaSettings.SwapWDurationSecs
         if IsObject(guiData)
         {
             this.useGUI := true
             this.guiName := guiData.guiName
-            this.guiControlIDcont := guiData.guiControlIDcont
             this.guiControlIDultStatus := guiData.guiControlIDultStatus
             this.guiControlIDults := guiData.guiControlIDults
         }
@@ -159,30 +144,22 @@ class BetterAzakaFarm
     farm()
     {
         g_SF.Memory.ActiveEffectKeyHandler.Refresh()
-        num := ActiveEffectKeySharedFunctions.Omin.OminContractualObligationsHandler.ReadNumContractsFulfilled()
-        if (this.useGUI)
-            GuiControl, % this.guiName, % this.guiControlIDcont, % "Current No. Contracts Fulfilled: " . num
         ultsReady := this.areAllUltsReady()
         if (this.useGUI)
             GuiControl, % this.guiName, % this.guiControlIDultStatus, % "Ults Status: " . ((ultsReady) ? "READY" : "On Cooldown")
 
-        if ((num > this.numContracts) AND ultsReady)
+        if ultsReady
         {
-            while (num > this.numContracts)
+            g_SF.DirectedInput(,, this.inputs*)
+            ; When all ults have been fired, optionally swap to another formation
+            if this.swapWDurationSecs > 0
             {
-                num := ActiveEffectKeySharedFunctions.Omin.OminContractualObligationsHandler.ReadNumContractsFulfilled()
-                g_SF.DirectedInput(,, this.inputs*)
-                ; When all ults have been fired, optionally swap to another formation
-                if (this.swapWDurationSecs > 0 AND this.areAllUltsOnCooldown())
-                {
-                    g_SF.DirectedInput(,,["{w}"]*)
-                    sleep, this.swapWDurationSecs * 1000
-                    g_SF.DirectedInput(,,["{q}"]*)
-                    return true
-                }
-                sleep, 100
+                g_SF.DirectedInput(,,["{w}"]*)
+                sleep, this.swapWDurationSecs * 1000
+                g_SF.DirectedInput(,,["{q}"]*)
+                return true
             }
-            return true
+            sleep, 100
         }
         return false
     }
@@ -191,27 +168,25 @@ class BetterAzakaFarm
     {
         For index, value in this.ultIndexes
         {
-            ultCd := this.readUltimateCooldownByItem(value)
+            ultCd := g_SF.Memory.readUltimateCooldownByItem(value)
             if (ultCd > 0)
                 return false ; any ult cd > 0 means they aren't all ready
         }
         return true
     }
 
-    areAllUltsOnCooldown()
-    {
-        For index, value in this.ultIndexes
-        {
-            ultCd := this.readUltimateCooldownByItem(value)
-            if (ultCd <= 0)
-                return false ; any ult cd <= 0 means it's not on cd
-        }
-        return true
-    }
+; Inverse of areAllUltsReady()
+; Aren't used anymore. Will leave it here in case we need it again
+;    areAllUltsOnCooldown()
+;    {
+;        For index, value in this.ultIndexes
+;        {
+;            ultCd := this.readUltimateCooldownByItem(value)
+;            if (ultCd <= 0)
+;                return false ; any ult cd <= 0 means it's not on cd
+;        }
+;        return true
+;    }
 
-    ; TODO: Temp while this isn't in scripthub proper
-    readUltimateCooldownByItem(item := 0)
-    {
-        return g_SF.Memory.GameManager.game.gameInstances[g_SF.Memory.GameInstance].Screen.uiController.ultimatesBar.ultimateItems[item].ultimateAttack.CooldownTimer.Read()
-    }
 }
+

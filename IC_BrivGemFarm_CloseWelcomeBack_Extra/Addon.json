@@ -1,6 +1,6 @@
 {
     "Name": "BrivGemFarm Close Welcome Back",
-    "Version": "v0.0.6",
+    "Version": "v0.0.7",
     "Includes": "IC_BrivGemFarm_CloseWelcomeBack_Component.ahk",
     "Author": "Ismo/Pneumatus",
     "Url": "https://github.com/Pneumatus/IC-Addons/tree/main/IC_BrivGemFarm_CloseWelcomeBack_Extra",

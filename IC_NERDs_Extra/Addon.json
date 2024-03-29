@@ -1,6 +1,6 @@
 {
     "Name":"NERDs Shake the Box",
-    "Version": "v1.0.4",
+    "Version": "v1.0.5",
     "Includes" : "IC_NERDs_Component.ahk",
     "Author" : "mikebaldi1980 + Ismo/Pneumatus",
     "Url" : "",

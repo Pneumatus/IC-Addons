@@ -3,6 +3,11 @@
 This AddOn will launch a seaparte script that will spam NERDs ultimate until you get the desired set of three NERDs.
 
 ## Change Log:
+v1.0.5, 2024-03-29
+
+    Improve the display of the different NERDs
+    Remove unneccesary save state label
+
 v1.0.4, 2024-03-29
 
     Update for ScriptHub v4

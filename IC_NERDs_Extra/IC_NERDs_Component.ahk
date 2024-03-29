@@ -20,7 +20,6 @@ loop, 6
 }
 NERDs_CB_Clicked()
 
-;Gui, ICScriptHub:Add, Button, x15 y+10 w160 gNERDs_Save, Save Settings
 Gui, ICScriptHub:Add, Button, x15 y+20 w160 gNERDs_Run, Run
 
 NERDs_Save()

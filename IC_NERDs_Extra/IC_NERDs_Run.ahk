@@ -26,28 +26,16 @@ Gui, MyWindow:Add, Text, x+5 vNERDs_Status w300,
 Gui, MyWindow:Add, Text, x15 y+5 vNERDs_UltKey w200,
 
 Gui, MyWindow:Show, x0 y0, Running NERDs...
-;Gui, MyWindow:Show
-/*
 
-
-#include %A_LineFile%\..\..\..\SharedFunctions\MemoryRead\EffectKeyHandlers\NerdWagonHandler.ahk
-global g_Nerds := new NerdWagonHandler
-if !IsObject(g_Nerds)
-{
-    msgBox, Failed to load NERDs Wagon Handler, ending script.
-    ExitApp
-}
-*/
-
-
-
-#include %A_LineFile%\..\..\..\SharedFunctions\IC_SharedFunctions_Class.ahk
+#include %A_LineFile%\..\..\IC_Core\IC_SharedFunctions_Class.ahk
 global g_SF := new IC_SharedFunctions_Class
 
-#include %A_LineFile%\..\..\..\SharedFunctions\MemoryRead\IC_ActiveEffectKeyHandler_Class.ahk
+#include %A_LineFile%\..\..\IC_Core\MemoryRead\IC_ActiveEffectKeyHandler_Class.ahk
 
-#include %A_LineFile%\..\..\..\SharedFunctions\IC_KeyHelper_Class.ahk
-global g_KeyMap := KeyHelper.BuildVirtualKeysMap()
+#include %A_LineFile%\..\..\..\SharedFunctions\SH_KeyHelper.ahk
+global g_KeyMap:= {}
+global g_SCKeyMap:= {}
+KeyHelper.BuildVirtualKeysMap(g_KeyMap, g_SCKeyMap)
 
 #include %A_LineFile%\..\..\..\SharedFunctions\json.ahk
 global g_NERDsSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\Settings.json" )

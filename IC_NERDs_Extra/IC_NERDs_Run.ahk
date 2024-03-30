@@ -83,11 +83,25 @@ loop
                 ExitApp
         }
         GuiControl, MyWindow:, NERDs_UltKey, % "Ult Key: " . ultKey
-        g_SF.DirectedInput(,, ultKey)
+        if (IsUltReady(ultKey)) {
+            g_SF.DirectedInput(,, ultKey)
+        }
+
+        ; If DM is in the formation try using that too
+        dmUltButton := g_SF.GetUltimateButtonByChampID(99)
+        if (dmUltButton > 0 && IsUltReady(dmUltButton)) {
+            g_SF.DirectedInput(,, dmUltButton) ; DM ult - reset cooldown
+        }
     }
     else
         GuiControl, MyWindow:, NERDs_Status, Waiting for another script to open IC...
     sleep, 250
+}
+
+IsUltReady(ultButton)
+{
+    ultCd := g_SF.Memory.ReadUltimateCooldownByItem(ultButton - 1)
+    return ultCd <= 0 ; <= 0 means it's not on cd
 }
 
 MyWindowGuiClose() 

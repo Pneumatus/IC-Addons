@@ -8,7 +8,7 @@ Gui, ICScriptHub:Tab, NERDs
 Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Text, x15 y80, NERDs
 Gui, ICScriptHub:Font, w400
-Gui, ICScriptHub:Add, Text, x15 y+5 w450 wrap, This AddOn will launch a seaparte script that will spam NERDs ultimate until you get the desired set of three NERDs.
+Gui, ICScriptHub:Add, Text, x15 y+5 w450 wrap, This AddOn will launch a seaparte script that will spam NERDs ultimate until you get the desired set of three NERDs. If Dungeon Master is in your formation, his ult will also be used to speed things up.
 Gui, ICScriptHub:Add, Text, x15 y+15, Select the NERDs you would like in your wagon:
 loop, 6
 {

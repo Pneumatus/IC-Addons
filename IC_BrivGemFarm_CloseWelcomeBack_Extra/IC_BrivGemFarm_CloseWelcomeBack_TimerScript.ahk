@@ -31,6 +31,30 @@ class IC_BrivGemFarm_CloseWelcomeBack_TimerScript
         if (g_SF.Memory.ReadWelcomeBackActive()) {
             g_SF.Hwnd := WinExist("ahk_exe " . g_UserSettings[ "ExeName" ])
             g_SF.DirectedInput(,,"{Esc}")
+            Loop 100 { ; active tasks will appear after we close welcome back - wait for it then close it
+                if (this.IsActiveTasksVisible()) {
+                    break
+                }
+                Sleep, 100 ; wait 100ms, looping 100 times = 10 seconds total max
+            }
+        }
+        this.CloseActiveTasks()
+    }
+
+    IsActiveTasksVisible()
+    {
+        dialogSlot := g_SF.Memory.GetDialogSlotByName("ActiveTasksDialog")
+        if (dialogSlot != "" && g_SF.Memory.ReadDialogActiveBySlot(dialogSlot)) {
+            Return, True
+        }
+        Return, False
+    }
+    
+    CloseActiveTasks()
+    {
+        if (this.IsActiveTasksVisible()) {
+            g_SF.Hwnd := WinExist("ahk_exe " . g_UserSettings[ "ExeName" ])
+            g_SF.DirectedInput(,,"{Esc}")
         }
     }
 }

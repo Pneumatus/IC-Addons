@@ -1,9 +1,9 @@
 {
     "Name": "BetterAzaka",
-    "Version": "v0.0.1",
+    "Version": "v0.0.2",
     "Includes": "IC_BetterAzaka_Component.ahk",
     "Author": "Ismo/Pneumatus",
     "Url": "https://github.com/Pneumatus/IC-Addons/tree/main/IC_BetterAzaka_Extra",
-    "Info": "This AddOn will spam Azaka and other champion's ults at a set Omin number of contracts fulfilled value.",
+    "Info": "This AddOn will spam Azaka and other champions' ultimates when all of them are off cooldown.",
     "Dependencies": {}
 }
